@@ -1,0 +1,4 @@
+Joci;1;Béla;0
+Gergő;1;Anna;0
+Bence;0;Gego;0
+Nyertes;0;VEsztes;0
