@@ -6,7 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="corretto-17" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="junit" level="project" />
     <orderEntry type="module-library" scope="TEST">
@@ -19,8 +19,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-  </component>
-  <component name="SonarLintModuleSettings">
-    <option name="uniqueId" value="f3dce5a1-d18e-4959-a282-7644021a3501" />
   </component>
 </module>

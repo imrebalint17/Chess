@@ -1,0 +1,12 @@
+
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ğ´öŠûÿÿÿÿ8’™¤ŒÀ1
+?
+java:S1659""Declare "ypos" on a separate line.( ìÉä8•™¤ŒÀ1
+V
+java:S5993$"9Change the visibility of this constructor to "protected".(ŞÜ¸8•™¤ŒÀ1
+u
+java:S2975"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(£Åµ«şÿÿÿÿ8–™¤ŒÀ1
+6
+java:S2225"Return a non null object.(¥¹ï8—™¤ŒÀ1
+{	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(”Âãóüÿÿÿÿ8—™¤ŒÀ1
+{	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(”Âãóüÿÿÿÿ8—™¤ŒÀ1

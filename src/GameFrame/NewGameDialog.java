@@ -21,19 +21,25 @@ public class NewGameDialog extends JDialog {
         JButton enginewhite = new JButton("Új játék Engine ellen feketeként");
         JButton engineblack = new JButton("Új játék Engine ellen fehérként");
         JButton player = new JButton("Új játék Játékos ellen");
+        JButton online = new JButton("Online játék indítása fehérként");
         panel.add(engineblack);
         panel.add(enginewhite);
         panel.add(player);
+        panel.add(online);
         player.addActionListener(e -> {
-            frame.newtable(GameFrame.EngineState.NO_ENGINE);
+            frame.newtable(GameFrame.EngineState.NO_ENGINE,false);
             dispose();
         });
         enginewhite.addActionListener(e -> {
-            frame.newtable(GameFrame.EngineState.WHITE);
+            frame.newtable(GameFrame.EngineState.WHITE,false);
             dispose();
         });
         engineblack.addActionListener(e -> {
-            frame.newtable(GameFrame.EngineState.BLACK);
+            frame.newtable(GameFrame.EngineState.BLACK,false);
+            dispose();
+        });
+        online.addActionListener(e -> {
+            frame.newtable(GameFrame.EngineState.BLACK,true);
             dispose();
         });
 

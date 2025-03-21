@@ -1,0 +1,29 @@
+
+j
+java:S1192="HDefine a constant instead of duplicating this literal "MentÃ©s" 3 times.(Òê—Ëıÿÿÿÿ8õ‰ÃàÔ1
+M
+java:S1066Ÿ"/Merge this if statement with the enclosing one.(Øü˜Š8ö‰ÃàÔ1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Óæñõ8ø‰ÃàÔ1
+k
+java:S2095J"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(µÑÔ8¡ŠÃàÔ1
+h
+java:S2095K"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(Âƒ58¡ŠÃàÔ1
+q
+java:S2095Ö"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(³ÓÃïüÿÿÿÿ8¡ŠÃàÔ1
+r
+java:S2095"OUse try-with-resources or close this "ObjectInputStream" in a "finally" clause.(ÑÒ»¥øÿÿÿÿ8¡ŠÃàÔ1
+p
+java:S2095€"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(Òƒºıÿÿÿÿ8¡ŠÃàÔ1
+s
+java:S2095×"PUse try-with-resources or close this "ObjectOutputStream" in a "finally" clause.(¥€ë˜øÿÿÿÿ8¡ŠÃàÔ1
+S
+java:S1948!"1Make "engineInterface" transient or serializable.(‹³—÷úÿÿÿÿ8¤ŠÃàÔ1
+o
+java:S3776;"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(…’ÉÅ8§ŠÃàÔ1
+_
+java:S1075è"ARefactor your code to get this URI from a customizable parameter.(ó¨¥ë8¶ŠÃàÔ1
+P
+java:S1135“"2Complete the task associated to this TODO comment.(”Á·8¸ŠÃàÔ1
+?	java:S131½""Add a default case to this switch.(‹Ñ×œ8ºŠÃàÔ1
+p
+java:S3776Í"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ıƒô‘8»ŠÃàÔ1
