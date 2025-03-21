@@ -41,8 +41,9 @@ public class OnlineEngineInterface implements EngineInterface{
         for(String move : prevMoves){
             body.append("\"");
             body.append(move);
-            body.append("\",");
+            body.append("\","); //TODO: PROBLEMATIC COMMA
         }
+        body.deleteCharAt(body.length()-1);
         body.append("]}");
         }
         String response = null;

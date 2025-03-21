@@ -24,7 +24,12 @@ public interface EngineInterface {
     }
     default InterfaceMoveWrapper convertUCItoSteps(String uci){
         String[] tmp = uci.split(" ");
-        String[] tmp2 = tmp[1].split("");
+        String[] tmp2;
+        if (tmp.length < 2){
+            tmp2 = tmp[0].split("");
+        }else {
+            tmp2 = tmp[1].split("");
+        }
         int[][] ret = new int[2][2];
         ret[0][0] = Math.abs(Integer.parseInt(tmp2[1]) - 8);
         ret[0][1] = tmp2[0].charAt(0) - 'a';
