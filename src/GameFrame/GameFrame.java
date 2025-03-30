@@ -98,14 +98,18 @@ public class GameFrame extends JFrame {
     private void jmenuInit(){
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
-        JMenu engine = new JMenu("Engine");
+        JMenu settings = new JMenu("Settings");
+        JMenu engineMenu = new JMenu("Engine");
+        JMenu onlineMenu = new JMenu("Online");
+        JMenuItem login = new JMenuItem("Login");
         JMenuItem menuFeladas = new JMenuItem("Feladom");
         JMenuItem menuMentes = new JMenuItem("Mentés");
         JMenuItem menuBetoltes = new JMenuItem("Betöltés");
         JMenuItem menuRanglista = new JMenuItem("Ranglista");
         JMenuItem menuUjJatek = new JMenuItem("Új játék");
-        JMenuItem engineEngine = new JMenuItem("Engine");
-        JMenuItem engineSettings = new JMenuItem("Beállítások");
+        JMenuItem engineEngine = new JMenuItem("Engine betöltés");
+        JMenuItem engineSettings = new JMenuItem("Engine beállítás");
+        JMenuItem engineOnline = new JMenuItem("Online beállítás");
         menuFeladas.addActionListener(new ForfeitItemListener());
         menuMentes.addActionListener(new SaveItemListener());
         menuBetoltes.addActionListener(new LoadItemListener());
@@ -113,15 +117,20 @@ public class GameFrame extends JFrame {
         menuUjJatek.addActionListener(new NewGameItemListener());
         engineEngine.addActionListener(new EngineItemListener());
         engineSettings.addActionListener(new SettingsItemListener());
+        login.addActionListener(e -> new LoginFrame());
         menuBar.add(menu);
-        menuBar.add(engine);
+        menuBar.add(settings);
+        menuBar.add(login);
         menu.add(menuMentes);
         menu.add(menuBetoltes);
         menu.add(menuRanglista);
         menu.add(menuFeladas);
         menu.add(menuUjJatek);
-        engine.add(engineEngine);
-        engine.add(engineSettings);
+        settings.add(engineMenu);
+        settings.add(onlineMenu);
+        engineMenu.add(engineEngine);
+        engineMenu.add(engineSettings);
+        onlineMenu.add(engineOnline);
         this.add(menuBar,BorderLayout.NORTH);
     }
     /** A tábla grafikus frissítése, a gombokkal együtt.

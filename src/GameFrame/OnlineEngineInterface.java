@@ -40,7 +40,7 @@ public class OnlineEngineInterface implements EngineInterface{
         prevMoves.add(currstep);
         for(String move : prevMoves){
             body.append("\"");
-            body.append(move);
+            body.append(move.strip()); //TODO: PROBLEMATIC STRIP
             body.append("\","); //TODO: PROBLEMATIC COMMA
         }
         body.deleteCharAt(body.length()-1);

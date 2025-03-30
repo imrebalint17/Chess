@@ -37,7 +37,7 @@ public interface EngineInterface {
         ret[1][1] = tmp2[2].charAt(0) - 'a';
         System.out.println(ret[0][0] + " " + ret[0][1] + " " + ret[1][0] + " " + ret[1][1]);
         char promote = 0;
-        if (tmp[1].length() == 5) {
+        if (tmp2.toString().length() == 5) {
             promote = tmp[1].charAt(4);
         }
         return new InterfaceMoveWrapper(ret, promote);
