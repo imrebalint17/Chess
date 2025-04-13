@@ -32,3 +32,6 @@ bin/
 .idea
 ### 
 Chess.iml
+
+### Target ###
+target/
