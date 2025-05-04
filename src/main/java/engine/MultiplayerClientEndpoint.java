@@ -16,6 +16,7 @@ public class MultiplayerClientEndpoint {
         this.multiplayerSession = MultiplayerSession.getInstance();
         this.session = session;
         System.out.println("Connected to server");
+        multiplayerSession.setClientEndpoint(this);
         // You can send a message to the server here if needed
     }
     @OnClose
@@ -37,8 +38,8 @@ public class MultiplayerClientEndpoint {
             int gameId = 0;
             switch (type) {
                 case "matched":
-                    gameId = jsonObject.get("game_id").getAsInt();
-                    multiplayerSession.setGameId(gameId);
+                    multiplayerSession.setColor((jsonObject.get("color").getAsString().equals("white")) ? 1 : 2);
+                    multiplayerSession.setGameId(jsonObject.get("game_id").getAsInt());
                     multiplayerSession.setSessionState(MultiplayerSession.SessionState.MATCHED);
                     System.out.println("Matched game with this gameId: " + gameId);
                     break;
@@ -57,7 +58,7 @@ public class MultiplayerClientEndpoint {
                     }
                     break;
                 default:
-                    System.out.println("Unknown message type: " + type);
+                    System.out.println("Unknown message type: " + type +"\t"+ message);
             }
         }
         catch (Exception e) {
@@ -69,8 +70,13 @@ public class MultiplayerClientEndpoint {
         String token = multiplayerSession.getToken();
         int gameId = multiplayerSession.getGameId();
         if (token != null && gameId != 0) {
-            session.getAsyncRemote().sendText("{\"type\": \"make_move\", \"token\": \"" + token + "\", \"game_id\": " + gameId + ", \"move\": \"" + move + "\"}");
-            System.out.println("Sent move: " + move);
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("type", "make_move");
+            jsonObject.addProperty("token", token);
+            jsonObject.addProperty("game_id", gameId);
+            jsonObject.addProperty("move", move);
+            System.out.println("Sending move: " + jsonObject);
+            session.getAsyncRemote().sendText(jsonObject.toString());
             return "Move sent to server";
         }
         return null;
@@ -78,13 +84,23 @@ public class MultiplayerClientEndpoint {
     public void authenticate(){
         String token = multiplayerSession.getToken();
         if (token != null) {
-            session.getAsyncRemote().sendText("{\"type\": \"authenticate\", \"token\": + \""+ token + "\"}");
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("type", "authenticate");
+            jsonObject.addProperty("token", token);
+            session.getAsyncRemote().sendText(jsonObject.toString());
         }
     }
     public void joinQueue() {
         String token = multiplayerSession.getToken();
+        authenticate();
+        System.out.println("Received join queue: " + token);
+        JsonObject jsonObject = new JsonObject();
         if (token != null) {
-            session.getAsyncRemote().sendText("{\"type\": \"join_queue\", \"token\": + \""+ token + "\"}");
+            jsonObject.addProperty("type", "join_queue");
+            jsonObject.addProperty("token", token);
+            System.out.println("Sent join queue: " + jsonObject);
+            session.getAsyncRemote().sendText(jsonObject.toString());
         }
+        System.out.println("Sent join queue");
     }
 }

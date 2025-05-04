@@ -178,9 +178,14 @@ public class GameFrame extends JFrame {
         }
         else if(engineState == EngineState.BLACK){
             enginestate = engineState;
+
             if(online==1){
                 engineInterface = new OnlineEngineInterface("127.0.0.1",8080,false);
-            }else{
+
+            }else if (online==2){
+                engineInterface = new MultiplayerInterface("127.0.0.1",30000,false);
+            }
+            else{
                 engineInterface = new LocalEngineInterface(engineLocation,false);
             }
         }

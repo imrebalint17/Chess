@@ -29,7 +29,6 @@ public class MultiplayerInterface implements EngineInterface{
             container.connectToServer(multiPlayerEndpoint, uri);
             MultiplayerSession session = MultiplayerSession.getInstance();
             session.setSessionState(MultiplayerSession.SessionState.CONNECTED);
-            multiPlayerEndpoint.joinQueue();
         } catch (Exception e) {
             System.err.println("Error connecting to WebSocket server: " + e.getMessage());
         }

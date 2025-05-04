@@ -31,8 +31,10 @@ public class LobbyFrame extends JFrame {
 
         add(panel);
         createGameButton.addActionListener(e -> {
-
-        })
+            LobbyModel lobbyModel = new LobbyModel();
+            lobbyModel.joinQueue();
+            lobbyModel.monitorSessionState();
+        });
         exitButton.addActionListener(e -> {
             session.setSessionState(MultiplayerSession.SessionState.DISCONNECTED);
             dispose();

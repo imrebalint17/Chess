@@ -1,5 +1,7 @@
 package gameFrame;
 
+import engine.MultiplayerSession;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -53,7 +55,12 @@ public class NewGameDialog extends JDialog {
         multiplayer.addActionListener(e -> {
             LobbyFrame lobbyFrame = new LobbyFrame();
             lobbyFrame.setVisible(true);
-            //frame.newtable(GameFrame.EngineState.WHITE,2);
+            MultiplayerSession multiplayerSession = MultiplayerSession.getInstance();
+            if (multiplayerSession.getColor()==1){
+                frame.newtable(GameFrame.EngineState.WHITE,2);
+            } else {
+                frame.newtable(GameFrame.EngineState.BLACK,2);
+            }
             dispose();
         });
     }

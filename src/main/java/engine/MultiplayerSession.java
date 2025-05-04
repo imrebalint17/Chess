@@ -12,8 +12,10 @@ public class MultiplayerSession {
         QUEUED,
         MATCHED
     }
-    private boolean color = false; // true = white, false = black
+    private int color = -1; // 1 = white, 0 = black, -1 = not assigned
     private SessionState state = SessionState.DISCONNECTED;
+    private String opponentName = null;
+    private MultiplayerClientEndpoint clientEndpoint = null;
     private void MultiplayerSession() {
 
     }
@@ -54,11 +56,24 @@ public class MultiplayerSession {
     }
     public void setUserId(int userId) {
         this.userId = userId;
+        System.out.println(this.userId);
     }
-    public boolean getColor() {
+    public int getColor() {
         return color;
     }
-    public void setColor(boolean color) {
+    public void setColor(int color) {
         this.color = color;
+    }
+    public String getOpponentName() {
+        return opponentName;
+    }
+    public void setOpponentName(String opponentName) {
+        this.opponentName = opponentName;
+    }
+    public MultiplayerClientEndpoint getClientEndpoint() {
+        return clientEndpoint;
+    }
+    public void setClientEndpoint(MultiplayerClientEndpoint clientEndpoint) {
+        this.clientEndpoint = clientEndpoint;
     }
 }
