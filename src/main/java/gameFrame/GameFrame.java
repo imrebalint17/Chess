@@ -1,6 +1,7 @@
 package gameFrame;
 import engine.EngineInterface;
 import engine.LocalEngineInterface;
+import engine.MultiplayerInterface;
 import engine.OnlineEngineInterface;
 import game.Table;
 import pieces.*;
@@ -56,7 +57,7 @@ public class GameFrame extends JFrame {
         table1 = table;
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         clickState = ClickState.FIRST_CLICK;
-        newtable(enginestate,false);
+        newtable(enginestate,0);
     }
     /** A végeredmény mentése fájlba.*/
     public void saveToFile(){
@@ -147,7 +148,7 @@ public class GameFrame extends JFrame {
         }
     }
     /** Az új tábla létrehozása.*/
-    public void newtable(EngineState engineState,boolean online){
+    public void newtable(EngineState engineState,int online){
         table1 = new Table();
         chessPanel.removeAll();
         chessPanel.setLayout(new GridLayout(8,8));
@@ -163,9 +164,13 @@ public class GameFrame extends JFrame {
         SwingUtilities.updateComponentTreeUI(this);
         if (engineState==EngineState.WHITE){
             enginestate = engineState;
-            if (online){
+            if (online==1){
                 engineInterface = new OnlineEngineInterface("127.0.0.1",8080,true);
-            }else {
+            }
+            else if (online==2){
+                engineInterface = new MultiplayerInterface("127.0.0.1",30000,true);
+            }
+            else {
                 engineInterface = new LocalEngineInterface(engineLocation, true);
             }
             table1.round(engineInterface.newRound(null,null).getMove());
@@ -173,7 +178,7 @@ public class GameFrame extends JFrame {
         }
         else if(engineState == EngineState.BLACK){
             enginestate = engineState;
-            if(online){
+            if(online==1){
                 engineInterface = new OnlineEngineInterface("127.0.0.1",8080,false);
             }else{
                 engineInterface = new LocalEngineInterface(engineLocation,false);
@@ -208,7 +213,7 @@ public class GameFrame extends JFrame {
             if(dialogResult == JOptionPane.YES_OPTION){
                 saveToFile();
                 //TODO: Nem tudom, hogy ugyan ugy onlineal induljon-e
-                newtable(enginestate,false);
+                newtable(enginestate,0);
             }
         }
     }
@@ -382,7 +387,7 @@ public class GameFrame extends JFrame {
                 JOptionPane.showMessageDialog(null, "Sakk Matt");
                 saveToFile();
                 //TODO: Nem tudom, hogy ugyan ugy onlineal induljon-e
-                newtable(enginestate,false);
+                newtable(enginestate,0);
             }
             if (table1.getpState() == Table.PState.CHANGE){
                 new ChooseDialog(finalstate,table1,frame);

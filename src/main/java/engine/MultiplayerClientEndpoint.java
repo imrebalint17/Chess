@@ -9,16 +9,24 @@ public class MultiplayerClientEndpoint {
     // This class will handle the WebSocket connection and messages
     // You can implement methods to handle onOpen, onClose, onMessage, etc.
     // For example:
-    private MulitplayerSession multiplayerSession;
+    private MultiplayerSession multiplayerSession;
+    private Session session;
     @OnOpen
     public void onOpen(Session session) {
-        this.multiplayerSession = MulitplayerSession.getInstance();
+        this.multiplayerSession = MultiplayerSession.getInstance();
+        this.session = session;
         System.out.println("Connected to server");
         // You can send a message to the server here if needed
-
     }
     @OnClose
     public void onClose() {
+        try {
+            session.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.session = null;
+        multiplayerSession.setSessionState(MultiplayerSession.SessionState.DISCONNECTED);
         System.out.println("Disconnected from server");
     }
     @OnMessage
@@ -31,16 +39,19 @@ public class MultiplayerClientEndpoint {
                 case "matched":
                     gameId = jsonObject.get("game_id").getAsInt();
                     multiplayerSession.setGameId(gameId);
+                    multiplayerSession.setSessionState(MultiplayerSession.SessionState.MATCHED);
                     System.out.println("Matched game with this gameId: " + gameId);
                     break;
                 case "queued":
                     System.out.println("Queued for a game");
+                    multiplayerSession.setSessionState(MultiplayerSession.SessionState.QUEUED);
                     break;
                 case "move":
                     String move = jsonObject.get("move").getAsString();
                     gameId = jsonObject.get("game_id").getAsInt();
                     if (gameId == multiplayerSession.getGameId()) {
                         System.out.println("Received move: " + move);
+                        multiplayerSession.setMove(move);
                     } else {
                         System.out.println("Received move for a different game: " + gameId);
                     }
@@ -54,22 +65,23 @@ public class MultiplayerClientEndpoint {
         }
     }
 
-    public String makeMove(Session session,String move) {
+    public String makeMove(String move) {
         String token = multiplayerSession.getToken();
         int gameId = multiplayerSession.getGameId();
         if (token != null && gameId != 0) {
             session.getAsyncRemote().sendText("{\"type\": \"make_move\", \"token\": \"" + token + "\", \"game_id\": " + gameId + ", \"move\": \"" + move + "\"}");
+            System.out.println("Sent move: " + move);
             return "Move sent to server";
         }
         return null;
     }
-    public void authenticate(Session session) {
+    public void authenticate(){
         String token = multiplayerSession.getToken();
         if (token != null) {
             session.getAsyncRemote().sendText("{\"type\": \"authenticate\", \"token\": + \""+ token + "\"}");
         }
     }
-    public void joinQueue(Session session) {
+    public void joinQueue() {
         String token = multiplayerSession.getToken();
         if (token != null) {
             session.getAsyncRemote().sendText("{\"type\": \"join_queue\", \"token\": + \""+ token + "\"}");
