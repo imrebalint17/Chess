@@ -1,8 +1,9 @@
 package engine;
 
-import javax.websocket.*;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import javax.websocket.*;
 
 @ClientEndpoint
 public class MultiplayerClientEndpoint {
@@ -13,11 +14,8 @@ public class MultiplayerClientEndpoint {
     private Session session;
     @OnOpen
     public void onOpen(Session session) {
-        this.multiplayerSession = MultiplayerSession.getInstance();
         this.session = session;
         System.out.println("Connected to server");
-        multiplayerSession.setClientEndpoint(this);
-        // You can send a message to the server here if needed
     }
     @OnClose
     public void onClose() {
@@ -32,6 +30,7 @@ public class MultiplayerClientEndpoint {
     }
     @OnMessage
     public void onMessage(String message) {
+        this.multiplayerSession = MultiplayerSession.getInstance();
         try {
             JsonObject jsonObject = JsonParser.parseString(message).getAsJsonObject();
             String type = jsonObject.get("type").getAsString();
@@ -39,6 +38,8 @@ public class MultiplayerClientEndpoint {
             switch (type) {
                 case "matched":
                     multiplayerSession.setColor((jsonObject.get("color").getAsString().equals("white")) ? 1 : 2);
+                    System.out.println(jsonObject.get("color").getAsString());
+                    System.out.println(multiplayerSession.getColor());
                     multiplayerSession.setGameId(jsonObject.get("game_id").getAsInt());
                     multiplayerSession.setSessionState(MultiplayerSession.SessionState.MATCHED);
                     System.out.println("Matched game with this gameId: " + gameId);
@@ -67,6 +68,7 @@ public class MultiplayerClientEndpoint {
     }
 
     public String makeMove(String move) {
+        this.multiplayerSession = MultiplayerSession.getInstance();
         String token = multiplayerSession.getToken();
         int gameId = multiplayerSession.getGameId();
         if (token != null && gameId != 0) {
@@ -75,6 +77,7 @@ public class MultiplayerClientEndpoint {
             jsonObject.addProperty("token", token);
             jsonObject.addProperty("game_id", gameId);
             jsonObject.addProperty("move", move);
+            jsonObject.addProperty("state","in_progress");
             System.out.println("Sending move: " + jsonObject);
             session.getAsyncRemote().sendText(jsonObject.toString());
             return "Move sent to server";
@@ -82,6 +85,7 @@ public class MultiplayerClientEndpoint {
         return null;
     }
     public void authenticate(){
+        this.multiplayerSession = MultiplayerSession.getInstance();
         String token = multiplayerSession.getToken();
         if (token != null) {
             JsonObject jsonObject = new JsonObject();
@@ -90,7 +94,9 @@ public class MultiplayerClientEndpoint {
             session.getAsyncRemote().sendText(jsonObject.toString());
         }
     }
-    public void joinQueue() {
+    public void joinQueue()
+    {
+        this.multiplayerSession = MultiplayerSession.getInstance();
         String token = multiplayerSession.getToken();
         authenticate();
         System.out.println("Received join queue: " + token);

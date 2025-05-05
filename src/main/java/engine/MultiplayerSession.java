@@ -1,5 +1,9 @@
 package engine;
 
+import javax.websocket.ContainerProvider;
+import javax.websocket.WebSocketContainer;
+import java.net.URI;
+
 public class MultiplayerSession {
     private String token = null;
     private int gameId = -1;
@@ -16,12 +20,24 @@ public class MultiplayerSession {
     private SessionState state = SessionState.DISCONNECTED;
     private String opponentName = null;
     private MultiplayerClientEndpoint clientEndpoint = null;
-    private void MultiplayerSession() {
-
+    private MultiplayerSession() {
+        String ip = "127.0.0.1";
+        int port = 30000;
+        try {
+            System.out.println("Connecting to " + ip + ":" + port);
+            clientEndpoint = new MultiplayerClientEndpoint();
+            WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+            URI uri = URI.create("ws://" + ip + ":" + port + "/ws");
+            container.connectToServer(clientEndpoint, uri);
+            setSessionState(MultiplayerSession.SessionState.CONNECTED);
+            instance = this;
+        } catch (Exception e) {
+            System.err.println("Error connecting to WebSocket server: " + e.getMessage());
+        }
     }
     public static MultiplayerSession getInstance() {
         if (instance == null) {
-            instance = new MultiplayerSession();
+            new MultiplayerSession();
         }
         return instance;
     }

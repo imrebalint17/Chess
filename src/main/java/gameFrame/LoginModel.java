@@ -1,15 +1,13 @@
 package gameFrame;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import engine.MultiplayerSession;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonObject;
-import engine.*;
-import game.Game;
-
-import javax.swing.*;
 
 public class LoginModel {
     public static int login(String username, String password, String ip, int port) {
@@ -88,19 +86,4 @@ public class LoginModel {
         }
         return 0;
     }
-//    private static String sendRequest(String url, String body){
-//        HttpClient client = HttpClient.newHttpClient();
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create(url))
-//                .POST(HttpRequest.BodyPublishers.ofString(body))
-//                .header("Content-Type", "application/json")
-//                .build();
-//        try {
-//            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//            return response.body();
-//        }catch (Exception e){
-//            System.err.println(e.getMessage());
-//        }
-//        return null;
-//    }
 }

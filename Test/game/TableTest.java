@@ -1,8 +1,9 @@
 package game;
-import pieces.Pawn;
-import pieces.Piece;
+
 import org.junit.Assert;
 import org.junit.Test;
+import pieces.Pawn;
+import pieces.Piece;
 
 public class TableTest {
 

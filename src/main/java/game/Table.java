@@ -1,6 +1,8 @@
 package game;
+
 import pieces.*;
-import java.io.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

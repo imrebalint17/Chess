@@ -55,11 +55,12 @@ public class NewGameDialog extends JDialog {
         multiplayer.addActionListener(e -> {
             LobbyFrame lobbyFrame = new LobbyFrame();
             lobbyFrame.setVisible(true);
+            lobbyFrame.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
             MultiplayerSession multiplayerSession = MultiplayerSession.getInstance();
             if (multiplayerSession.getColor()==1){
-                frame.newtable(GameFrame.EngineState.WHITE,2);
-            } else {
                 frame.newtable(GameFrame.EngineState.BLACK,2);
+            } else {
+                frame.newtable(GameFrame.EngineState.WHITE,2);
             }
             dispose();
         });

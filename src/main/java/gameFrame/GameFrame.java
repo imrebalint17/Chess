@@ -1,10 +1,14 @@
 package gameFrame;
+
 import engine.EngineInterface;
 import engine.LocalEngineInterface;
 import engine.MultiplayerInterface;
 import engine.OnlineEngineInterface;
 import game.Table;
-import pieces.*;
+import pieces.Bishop;
+import pieces.Knight;
+import pieces.Queen;
+import pieces.Rook;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

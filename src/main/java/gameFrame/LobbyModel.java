@@ -1,11 +1,9 @@
 package gameFrame;
 
 import engine.MultiplayerClientEndpoint;
-import engine.MultiplayerInterface;
 import engine.MultiplayerSession;
 
 import javax.swing.*;
-
 public class LobbyModel {
     private MultiplayerSession session;
 

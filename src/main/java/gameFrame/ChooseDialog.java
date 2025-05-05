@@ -1,6 +1,8 @@
 package gameFrame;
+
 import game.Table;
 import pieces.*;
+
 import javax.swing.*;
 import java.awt.*;
 

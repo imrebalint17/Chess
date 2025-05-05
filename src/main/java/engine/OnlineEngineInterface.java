@@ -3,14 +3,12 @@ package engine;
 import gameFrame.InterfaceMoveWrapper;
 import pieces.Piece;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonObject;
+import java.util.ArrayList;
+import java.util.List;
 
 //TODO: Do this class multithreaded!
 
@@ -32,7 +30,6 @@ public class OnlineEngineInterface implements EngineInterface{
         url.append(port);
         StringBuilder body = new StringBuilder();
         if(prevStep == null){
-
             body.append("{\"moves\":[]}");
         }
         else {
