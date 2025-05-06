@@ -1,5 +1,6 @@
 package engine;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import gameFrame.InterfaceMoveWrapper;
@@ -12,7 +13,6 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO: Do this class multithreaded!
 
 public class OnlineEngineInterface implements EngineInterface{
     private HttpClient client;
@@ -31,44 +31,30 @@ public class OnlineEngineInterface implements EngineInterface{
         url.append(":");
         url.append(port);
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("moves", prevMoves.toString());
-        StringBuilder body = new StringBuilder();
-        if(prevStep == null){
-            body.append("{\"moves\":[]}");
-        }
-        else {
-        body.append("{\"moves\":[");
+        if(prevStep != null){
         String currstep = convertStepstoUCI(prevStep, promotion);
         prevMoves.add(currstep);
-        for(String move : prevMoves){
-            body.append("\"");
-            body.append(move.strip()); //TODO: PROBLEMATIC STRIP
-            body.append("\","); //TODO: PROBLEMATIC COMMA
         }
-        body.deleteCharAt(body.length()-1);
-        body.append("]}");
+        JsonArray jsonarray = new JsonArray(prevMoves.size());
+        for (String move : prevMoves) {
+            jsonarray.add(move);
         }
-        System.out.println("Regi json"+body);
+        jsonObject.add("moves", jsonarray);
         System.out.println("Uj json"+jsonObject.toString());
         String response = null;
         while (response == null){
-            response = sendRequest(url.toString(),body.toString());
+            System.out.println(jsonObject.toString());
+            response = sendRequest(url.toString(),jsonObject.toString());
             try{
                 Thread.sleep(100);
             }catch (InterruptedException e){
                 System.err.println(e.getMessage());
             }
         }
-        String[] responssplit = response.split(":");
-        if(responssplit.length >1 && responssplit[0].equals("{\"nextmove\"")){
-            response = responssplit[1].replace("\"","").replace("}","");
-        }
         jsonObject = JsonParser.parseString(response).getAsJsonObject();
-        String nextmove = jsonObject.get("nextmove").getAsString();
-        System.out.println("Old Next move: "+response);
-        System.out.println("New Next move: "+nextmove);
-        prevMoves.add(response);
-        InterfaceMoveWrapper wrapper = convertUCItoSteps(response);
+        String nextMove = jsonObject.get("nextmove").getAsString();
+        prevMoves.add(nextMove);
+        InterfaceMoveWrapper wrapper = convertUCItoSteps(nextMove);
         return wrapper;
     }
     private String sendRequest(String url,String body){
