@@ -5,7 +5,7 @@ import engine.MultiplayerSession;
 
 import javax.swing.*;
 public class LobbyModel {
-    private MultiplayerSession session;
+    private final MultiplayerSession session;
 
     public LobbyModel() {
         this.session = MultiplayerSession.getInstance();
@@ -17,13 +17,13 @@ public class LobbyModel {
                 if (session.getSessionState() == MultiplayerSession.SessionState.MATCHED) {
                     SwingUtilities.invokeLater(() -> {
                         int color = session.getColor();
-                        String colorText = (color == 1) ? "white" : "black";
+                        String colorText = (color == 1) ? "black" : "white";
                         JOptionPane.showMessageDialog(null, "Game matched! You are playing as " + colorText);
                     });
                     break;
                 }
                 try {
-                    Thread.sleep(500); // Check every 500ms
+                    Thread.sleep(500); // Check every 500 ms
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

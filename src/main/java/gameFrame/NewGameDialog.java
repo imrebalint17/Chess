@@ -19,7 +19,7 @@ public class NewGameDialog extends JDialog {
         panel.setVisible(true);
     }
     private void init(){
-        panel.setLayout(new GridLayout(1,3));
+        panel.setLayout(new GridLayout(2,3));
         JButton enginewhite = new JButton("Új játék Engine ellen feketeként");
         JButton engineblack = new JButton("Új játék Engine ellen fehérként");
         JButton player = new JButton("Új játék Játékos ellen");

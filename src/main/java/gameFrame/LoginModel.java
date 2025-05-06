@@ -23,14 +23,12 @@ public class LoginModel {
             con.setRequestProperty("Content-Type", "application/json; utf-8");
             con.setRequestProperty("Accept", "application/json");
             con.setDoOutput(true);
-
-            String jsonInput = "{"
-                    + "\"username\":\"" + username + "\","
-                    + "\"password\":\"" + password + "\""
-                    + "}";
+            JsonObject jsonObj = new JsonObject();
+            jsonObj.addProperty("username", username);
+            jsonObj.addProperty("password", password);
 
             try (java.io.DataOutputStream wr = new java.io.DataOutputStream(con.getOutputStream())) {
-                wr.writeBytes(jsonInput);
+                wr.writeBytes(jsonObj.toString());
                 wr.flush();
             }
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -67,14 +65,11 @@ public class LoginModel {
             con.setRequestProperty("Content-Type", "application/json; utf-8");
             con.setRequestProperty("Accept", "application/json");
             con.setDoOutput(true);
-
-            String jsonInput = "{"
-                    + "\"username\":\"" + username + "\","
-                    + "\"password\":\"" + password + "\""
-                    + "}";
-
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("username", username);
+            jsonObject.addProperty("password", password);
             try (java.io.DataOutputStream wr = new java.io.DataOutputStream(con.getOutputStream())) {
-                wr.writeBytes(jsonInput);
+                wr.writeBytes(jsonObject.toString());
                 wr.flush();
             }
             int responseCode = con.getResponseCode();

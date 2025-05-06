@@ -1,5 +1,7 @@
 package engine;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import gameFrame.InterfaceMoveWrapper;
 import pieces.Piece;
 
@@ -28,6 +30,8 @@ public class OnlineEngineInterface implements EngineInterface{
         url.append(ip);
         url.append(":");
         url.append(port);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("moves", prevMoves.toString());
         StringBuilder body = new StringBuilder();
         if(prevStep == null){
             body.append("{\"moves\":[]}");
@@ -44,19 +48,25 @@ public class OnlineEngineInterface implements EngineInterface{
         body.deleteCharAt(body.length()-1);
         body.append("]}");
         }
+        System.out.println("Regi json"+body);
+        System.out.println("Uj json"+jsonObject.toString());
         String response = null;
         while (response == null){
             response = sendRequest(url.toString(),body.toString());
-            /*try{
-                Thread.sleep(30000);
+            try{
+                Thread.sleep(100);
             }catch (InterruptedException e){
                 System.err.println(e.getMessage());
-            }*/
+            }
         }
         String[] responssplit = response.split(":");
         if(responssplit.length >1 && responssplit[0].equals("{\"nextmove\"")){
             response = responssplit[1].replace("\"","").replace("}","");
         }
+        jsonObject = JsonParser.parseString(response).getAsJsonObject();
+        String nextmove = jsonObject.get("nextmove").getAsString();
+        System.out.println("Old Next move: "+response);
+        System.out.println("New Next move: "+nextmove);
         prevMoves.add(response);
         InterfaceMoveWrapper wrapper = convertUCItoSteps(response);
         return wrapper;
